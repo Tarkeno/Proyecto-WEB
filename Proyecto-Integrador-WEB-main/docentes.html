@@ -97,7 +97,7 @@
             <i class="fa-solid fa-user-graduate me-2"></i> Estudiantes
           </a>
           <a href="docentes.html" class="list-group-item list-group-item-action">
-            <i class="fa-solid fa-chalkboard-user me-2"></i> Docentes
+            <i class="fa-solid fa-chalkboard-user me-2"></i> Personal
           </a>
           <a href="reportes.html" class="list-group-item list-group-item-action">
             <i class="fa-solid fa-chart-line me-2"></i> Reportes
@@ -117,16 +117,17 @@
 
     <section>
       <div class="informacion">
-        <h2><p>Información del docente</p></h2>
+        <h2><p>Información del Personal</p></h2>
       </div>
+      <form action="informacion_docente.html" method="GET">
       <div class="matricula">
         <span>
-          <i class="fa-duotone fa-regular fa-user"> Clave del docente:</i>
-        </span>
-        <input type="text" class="form-control">
+          <i class="fa-duotone fa-regular fa-user"> Clave Personal:</i> </span>
+        <input type="text" class="form-control" placeholder="Ingrese la clave del personal" required>
         <br>
-        <a href="informacion_docente.html" class="btn btn-success w-100 mb-2">BUSCAR DOCENTE</a>
+        <button type="submit" class="btn btn-success w-100 mb-2">BUSCAR PERSONAL</button>
       </div>
+    </from>
     </section>
   </main>
 

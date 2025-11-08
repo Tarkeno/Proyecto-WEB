@@ -94,7 +94,7 @@ section{
                         <i class="fa-solid fa-user-graduate me-2"></i> Estudiantes
                     </a>
                     <a href="docentes.html" class="list-group-item list-group-item-action">
-                        <i class="fa-solid fa-chalkboard-user me-2"></i> Docentes
+                        <i class="fa-solid fa-chalkboard-user me-2"></i> Personal
                     </a>
                     <a href="reportes.html" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-chart-line me-2"></i> Reportes
@@ -116,14 +116,16 @@ section{
             <div class="informacion">
                 <h2><p>Información del estudiante</p></h2>
             </div>
-            <div class="matricula">
+            <form action="informacion_estudiante.html" method="GET">
+             <div class="matricula">
                 <span>
-                <i class="fa-duotone fa-regular fa-user"> Matricula:</i>
+                <i class="fa-duotone fa-regular fa-user"> Matricula Estudiante:</i>
                 </span>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" placeholder="Ingrese Matricula Del Estudiante" required>
                 <br>
-                <a href="informacion_estudiante.html" class="btn btn-success w-100 mb-2">BUSCAR ESTUDIANTE</a>
+                <button type="submit" class="btn btn-success w-100 mb-2">BUSCAR ESTUDIANTE</button>
             </div>
+            </form>
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
