@@ -21,7 +21,7 @@
   </header>
 
   <div id="titulo2">
-    <h2>REPORTE DE ESTUDIANTES</h2>
+    <h2>REPORTE GENERAL DE ESTUDIANTES</h2>
   </div>
 
   <div class="acciones">
@@ -52,6 +52,8 @@
         </tr>
       </thead>
       <tbody id="tabla-general-estudiantes">
+         <!-- Aquí el backend insertará dinámicamente los registros por alumno -->
+
         <tr>
           <td>2430295</td>
           <td>Enrique Marquez</td>
@@ -79,6 +81,23 @@
     function guardarReporte() {
       alert("Función de guardar aún no implementada. Puedes exportar como PDF desde el navegador.");
     }
+     const params = new URLSearchParams(window.location.search);
+     const inicio = params.get("inicio");
+     const fin = params.get("fin");
+
+     console.log("Fecha inicio:", inicio);
+     console.log("Fecha fin:", fin);
+
+// Aquí el backend puede usar fetch para obtener los datos desde PostgreSQL
+// Ejemplo:
+// fetch(`/api/reporte-asistencias?inicio=${inicio}&fin=${fin}`)
+//   .then(res => res.json())
+//   .then(data => {
+//     // Insertar filas en #tabla-asistencias
+//   });
+
+
+    
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

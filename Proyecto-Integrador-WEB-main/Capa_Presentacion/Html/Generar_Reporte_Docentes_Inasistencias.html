@@ -49,7 +49,7 @@
           <th>Inasistencia</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tabla-inasistencias-personal">
         <tr>
           <td>001</td>
           <td>Juan Pérez</td>
@@ -71,6 +71,22 @@
     function guardarReporte() {
       alert("Función de guardar aún no implementada. Puedes exportar como PDF desde el navegador.");
     }
+       // Leer parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    const inicio = params.get("inicio");
+    const fin = params.get("fin");
+
+    // Mostrar en consola para debug
+    console.log("Fecha inicio:", inicio);
+    console.log("Fecha fin:", fin);
+
+    // Aquí el backend puede usar fetch para obtener los datos desde PostgreSQL
+    // Ejemplo:
+    // fetch(`/api/reporte-asistencias?inicio=${inicio}&fin=${fin}`)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     // Insertar filas en #tabla-asistencias
+    //   });s
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

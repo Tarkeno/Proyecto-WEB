@@ -29,21 +29,20 @@
        style="background: url('../Images/backgroundCecyteh.png') center/cover no-repeat;">
     <div class="card shadow-lg p-4" style="width: 22rem;">
       <h5 class="text-center mb-4 fw-bold">Registros de Asistencias</h5>
-      <form>
+      <form action="panel_inicio.html" method="get">
         <div class="input-group mb-3">
           <span class="input-group-text">
             <i class="fa-solid fa-user"></i>
           </span>
-          <input type="text" class="form-control" placeholder="Clave">
+          <input type="text" class="form-control" placeholder="Clave" required>
         </div>
-
         <div class="input-group mb-3">
           <span class="input-group-text">
             <i class="fa-solid fa-lock"></i>
           </span>
-          <input type="password" class="form-control" placeholder="Contraseña">
+          <input type="password" class="form-control" placeholder="Contraseña" required>
         </div>
-        <a href="panel_inicio.html" class="btn btn-success w-100 mb-2" id="iniciar_sesion">INICIAR SESIÓN</a>
+        <button type="submit" class="btn btn-success w-100 mb-2">INICIAR SESIÓN</button>
         <a href="registro.html" class="btn btn-outline-success w-100">REGISTRAR</a>
       </form>
     </div>

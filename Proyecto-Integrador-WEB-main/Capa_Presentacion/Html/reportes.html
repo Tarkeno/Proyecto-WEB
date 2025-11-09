@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../Estilos/Reportes.css">
+
 </head>
 <body>
      <header>
@@ -56,8 +57,11 @@
   <h2>Fecha y Tipo de Reporte</h2>
 
   <!-- Calendario -->
-  <label for="fecha">Rango de fechas:</label>
-  <input type="date" id="fecha" name="fecha" class="form-control mb-3">
+  <label for="Fecha_Inicio">Fecha Inicio:</label>
+  <input type="date" id="Fecha_Inicio" name="Fecha_Inicio" class="form-control mb-3">
+
+   <label for="Fecha_Fin">Fecha Fin:</label>
+  <input type="date" id="Fecha_Fin" name="fecha" class="form-control mb-3">
 
   <!-- Menú desplegable 1: Carrera -->
   <label for="comunidad"><strong>Comunidad educativa</strong></label>
@@ -113,7 +117,6 @@
   </select>
   <div class="d-flex gap-3 mt-4">
   <button onclick="redirigir()" class="btn btn-danger">Generar reporte </button>
-  <a href="Modificar_Reportes.html" class="btn btn-primary">Modificar reporte</a>
 </div>
 <script>
   const comunidad = document.getElementById("comunidad");
@@ -125,52 +128,70 @@
   });
 
   function redirigir() {
-    const seleccion = comunidad.value;
-    const reporte = document.getElementById("reporte").value;
+  const seleccion = comunidad.value;
+  const reporte = document.getElementById("reporte").value;
+  const fechaInicio = document.getElementById("Fecha_Inicio").value;
+  const fechaFin = document.getElementById("Fecha_Fin").value;
 
-    if (!seleccion || !reporte) {
-      alert("Selecciona comunidad educativa y tipo de reporte.");
+  if (!seleccion || !reporte || !fechaInicio || !fechaFin) {
+    alert("Completa todos los campos requeridos.");
+    return;
+  }
+
+  if (fechaFin < fechaInicio) {
+    alert("La fecha final no puede ser anterior a la fecha de inicio.");
+    return;
+  }
+
+  let destino = "";
+
+  if (seleccion === "estudiantes") {
+    const carrera = document.getElementById("carreras").value;
+    const semestre = document.getElementById("Semestre").value;
+    const grupo = document.getElementById("Grupo").value;
+
+    if (!carrera || !semestre || !grupo) {
+      alert("Completa todos los campos de estudiante.");
       return;
     }
 
-    let destino = "";
-
-    if (seleccion === "estudiantes") {
-      const carrera = document.getElementById("carreras").value;
-      const semestre = document.getElementById("Semestre").value;
-      const grupo = document.getElementById("Grupo").value;
-
-      if (!carrera || !semestre || !grupo) {
-        alert("Completa todos los campos de estudiante.");
-        return;
-      }
-
-      if (reporte === "Asistencias") destino = "Reportes_Grupales_Estudiantes_Asistencias.html";
-      else if (reporte === "Reporte General") destino = "Reportes_Grupales_Estudiantes_General.html"
-      else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Estudiantes_Inasistencias.html";
-      else if (reporte === "justificacion") destino = "Reportes_Grupales_Estudiantes_justificaciones.html";
-    }
-
-    else if (seleccion === "docentes") {
-      if (reporte === "Asistencias") destino = "Reportes_Grupales_Docentes_Asistencias.html";
-      else if (reporte === "Reporte General") destino = "Reportes_Grupales_Docentes_General.html";
-      else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Docentes_Inasistencias.html";
-      else if (reporte === "justificacion") destino = "Reportes_Grupales_Docentes_Justificaciones.html";
-    }
-
-    else if (seleccion === "Personal administrativo y directivo") {
-      if (reporte === "Asistencias") destino = "Reportes_Grupales_Administrativo_Asistencias.html";
-      else if (reporte === "Reporte General") destino = "Reportes_Grupales_Administrativo_General.html";
-      else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Administrativo_Inasistencias.html";
-      else if (reporte === "justificacion") destino = "Reportes_Grupales_Administrativo_Justificaciones.html";
-    }
+    if (reporte === "Asistencias") destino = "Reportes_Grupales_Estudiantes_Asistencias.html";
+    else if (reporte === "Reporte General") destino = "Reportes_Grupales_Estudiantes_General.html";
+    else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Estudiantes_Inasistencias.html";
+    else if (reporte === "justificacion") destino = "Reportes_Grupales_Estudiantes_justificaciones.html";
 
     if (destino) {
-      window.location.href = destino;
-    } else {
-      alert("No se encontró una ruta para ese tipo de reporte.");
+      window.location.href = `${destino}?inicio=${fechaInicio}&fin=${fechaFin}&carrera=${carrera}&semestre=${semestre}&grupo=${grupo}`;
+      return;
     }
   }
+
+  if (seleccion === "docentes") {
+    if (reporte === "Asistencias") destino = "Reportes_Grupales_Docentes_Asistencias.html";
+    else if (reporte === "Reporte General") destino = "Reportes_Grupales_Docentes_General.html";
+    else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Docentes_Inasistencias.html";
+    else if (reporte === "justificacion") destino = "Reportes_Grupales_Docentes_Justificaciones.html";
+
+    if (destino) {
+      window.location.href = `${destino}?inicio=${fechaInicio}&fin=${fechaFin}`;
+      return;
+    }
+  }
+
+  if (seleccion === "Personal administrativo y directivo") {
+    if (reporte === "Asistencias") destino = "Reportes_Grupales_Administrativo_Asistencias.html";
+    else if (reporte === "Reporte General") destino = "Reportes_Grupales_Administrativo_General.html";
+    else if (reporte === "Inasistencias") destino = "Reportes_Grupales_Administrativo_Inasistencias.html";
+    else if (reporte === "justificacion") destino = "Reportes_Grupales_Administrativo_Justificaciones.html";
+
+    if (destino) {
+      window.location.href = `${destino}?inicio=${fechaInicio}&fin=${fechaFin}`;
+      return;
+    }
+  }
+
+  alert("No se encontró una ruta para ese tipo de reporte.");
+}
 </script>
      
 

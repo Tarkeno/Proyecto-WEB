@@ -21,9 +21,8 @@
   </header>
 
   <div id="titulo2">
-    <h2>MODIFICAR REPORTE</h2>
+    <h2>MODIFICAR REPORTE PERSONAL</h2>
   </div>
-
   <!-- Acciones superiores -->
  <div class="acciones-superior">
   <button class="btn btn-danger">
@@ -62,7 +61,7 @@
           <th>Modificar Asistencia</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody  id="tabla-registros-docentes">
         <tr>
           <td>001</td>
           <td>Juan Martinez</td>
@@ -93,6 +92,25 @@
       </tbody>
     </table>
   </div>
+
+   <script>
+    // Leer parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    const inicio = params.get("inicio");
+    const fin = params.get("fin");
+
+    // Mostrar en consola para debug
+    console.log("Inicio:", inicio);
+    console.log("Fin:", fin);
+
+    // Aquí el backend puede usar fetch para obtener los datos desde PostgreSQL
+    // Ejemplo:
+    // fetch(`/api/modificar-reporte?inicio=${inicio}&fin=${fin}`)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     // Insertar filas en #tabla-registros
+    //   });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
