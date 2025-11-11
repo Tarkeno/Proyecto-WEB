@@ -45,7 +45,11 @@
         <tr>
           <th>Matricula</th>
           <th>Nombre</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
           <th>Carrera</th>
+          <th>Semestre</th>
+          <th>Grupo</th>
           <th>Fecha</th>
           <th>Justificaciones</th>
         </tr>
@@ -54,16 +58,24 @@
         <!-- Aquí el backend insertará dinámicamente los registros por alumno -->
         <tr>
           <td>2023001</td>
-          <td>Juan Pérez</td>
+          <td>Juan</td>
+          <td>Pérez</td>
+          <td>Gómez</td>
           <td>Programación</td>
-          <th>24/11/2025</th>
+          <td>6</td>
+          <td>A</td>
+          <td>24/11/2025</td>
           <td>1</td>
         </tr>
         <tr>
           <td>2023001</td>
-          <td>Juan Pérez</td>
+          <td>Juan</td>
+          <td>Pérez</td>
+          <td>Gómez</td>
           <td>Programación</td>
-          <th>25/11/2025</th>
+          <td>6</td>
+          <td>A</td>
+          <td>25/11/2025</td>
           <td>1</td>
         </tr>
         <!-- Puedes agregar más filas aquí -->
@@ -81,15 +93,30 @@
 
     console.log("Fecha inicio:", inicio);
     console.log("Fecha fin:", fin);
+    const matricula = params.get("matricula");
 
-// Aquí el backend puede usar fetch para obtener los datos desde PostgreSQL
-// Ejemplo:
-// fetch(`/api/reporte-asistencias?inicio=${inicio}&fin=${fin}`)
-//   .then(res => res.json())
-//   .then(data => {
-//     // Insertar filas en #tabla-asistencias
-//   });
+fetch(`/api/reporte?matricula=${matricula}&inicio=${inicio}&fin=${fin}&tipo=justificacion`)
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById("tabla-justificaciones-estudiantes");
+    tbody.innerHTML = "";
 
+    data.forEach(registro => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${registro.matricula}</td>
+        <td>${registro.nombre}</td>
+        <td>${registro.apellido_paterno}</td>
+        <td>${registro.apellido_materno}</td>
+        <td>${registro.carrera}</td>
+        <td>${registro.semestre}</td>
+        <td>${registro.grupo}</td>
+        <td>${registro.fecha}</td>
+        <td>1</td>
+      `;
+      tbody.appendChild(fila);
+    });
+  });
 
   </script>
 

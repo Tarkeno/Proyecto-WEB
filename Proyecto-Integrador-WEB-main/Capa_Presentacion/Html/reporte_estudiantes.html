@@ -40,8 +40,11 @@
           <a href="reportes.html" class="list-group-item list-group-item-action">
             <i class="fa-solid fa-chart-line me-2"></i> Reportes
           </a>
-          <a href="configuracion.html" class="list-group-item list-group-item-action">
-            <i class="fa-solid fa-gear me-2"></i> Configuración
+              <a href="configuracion.html" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-user me-2"></i> Agregar a la comunidad
+          </a>
+          <a href="agregar.html" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-plus me-2"></i> Añadir Cuenta
           </a>
           <a href="verificación.html" class="list-group-item list-group-item-action">
             <i class="fa-solid fa-check me-2"></i> Verificación
@@ -90,40 +93,45 @@
       </div>
 
       <script>
-        function mostrarOpciones() {
-          const accion = document.getElementById("accion").value;
-          document.getElementById("opciones_generar").style.display = accion === "generar" ? "block" : "none";
-          document.getElementById("opciones_modificar").style.display = accion === "modificar" ? "block" : "none";
-        }
+  const params = new URLSearchParams(window.location.search);
+  const matricula = params.get("matricula");
 
-        function redirigir(tipo) {
-          const fechaInicio = document.getElementById("fecha_inicio").value;
-          const fechaFin = document.getElementById("fecha_fin").value;
+  function mostrarOpciones() {
+    const accion = document.getElementById("accion").value;
+    document.getElementById("opciones_generar").style.display = accion === "generar" ? "block" : "none";
+    document.getElementById("opciones_modificar").style.display = accion === "modificar" ? "block" : "none";
+  }
 
-          if (!fechaInicio || !fechaFin) {
-            alert("Por favor selecciona el rango de fechas.");
-            return;
-          }
+  function redirigir(tipo) {
+    const fechaInicio = document.getElementById("fecha_inicio").value;
+    const fechaFin = document.getElementById("fecha_fin").value;
+    const params = new URLSearchParams(window.location.search);
+  const matricula = params.get("matricula");
 
-          if (fechaFin < fechaInicio) {
-            alert("La fecha final no puede ser anterior a la fecha de inicio.");
-            return;
-          }
 
-          if (tipo === "generar") {
-            const destino = document.getElementById("reporte").value;
-            if (!destino) {
-              alert("Por favor selecciona un tipo de reporte.");
-              return;
-            }
-            window.location.href = `${destino}?inicio=${fechaInicio}&fin=${fechaFin}`;
-          }
+    if (!fechaInicio || !fechaFin) {
+      alert("Por favor selecciona el rango de fechas.");
+      return;
+    }
 
-          if (tipo === "modificar") {
-            window.location.href = `Modificar_Reporte_Estudiantes.html?inicio=${fechaInicio}&fin=${fechaFin}`;
-          }
-        }
-      </script>
+    if (fechaFin < fechaInicio) {
+      alert("La fecha final no puede ser anterior a la fecha de inicio.");
+      return;
+    }
+    if (tipo === "generar") {
+      const destino = document.getElementById("reporte").value;
+      if (!destino) {
+        alert("Por favor selecciona un tipo de reporte.");
+        return;
+      }
+      window.location.href = `${destino}?matricula=${matricula}&inicio=${fechaInicio}&fin=${fechaFin}`;
+    }
+
+    if (tipo === "modificar") {
+      window.location.href = `Modificar_Reporte_Estudiantes.html?matricula=${matricula}&inicio=${fechaInicio}&fin=${fechaFin}`;
+    }
+  }
+</script>
     </section>
   </main>
 

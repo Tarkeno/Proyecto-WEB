@@ -39,9 +39,12 @@
                     <a href="reportes.html" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-chart-line me-2"></i> Reportes
                     </a>
-                    <a href="configuracion.html" class="list-group-item list-group-item-action">
-                        <i class="fa-solid fa-gear me-2"></i> Configuración
-                    </a>
+                                <a href="configuracion.html" class="list-group-item list-group-item-action">
+                    <i class="fa-solid fa-user me-2"></i> Agregar a la comunidad
+                       </a>
+                     <a href="configuracion.html" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-plus me-2"></i> Añadir Cuenta
+                       </a>
                     <a href="verificación.html" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-check me-2"></i> Verificación
                     </a>
@@ -68,26 +71,54 @@
             <div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Clave:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="Clave" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Nombre:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="Nombre" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Apellido Paterno:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="Apellido_Paterno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Apellido Materno:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="Apellido_Materno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Rol:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="Rol" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
              </div>
         </section>
+        <script>
+  // Leer la clave desde la URL
+  const params = new URLSearchParams(window.location.search);
+  const clave = params.get("clave");
+
+  // Mostrar la clave directamente
+  if (clave) {
+    document.getElementById("clave").value = clave;
+
+    // Simulación de datos (el backend lo reemplazará luego)
+    const data = {
+      nombre: "Ejemplo",
+      apellido_paterno: "Apellido1",
+      apellido_materno: "Apellido2",
+      rol: "docente" // o "administrativo"
+    };
+
+    // Insertar datos en los campos
+    document.getElementById("nombre").value = data.nombre;
+    document.getElementById("apellido_paterno").value = data.apellido_paterno;
+    document.getElementById("apellido_materno").value = data.apellido_materno;
+    document.getElementById("rol").value = data.rol;
+
+    // Redirigir al reporte con clave y rol
+    const btnReporte = document.getElementById("btnReporte");
+    btnReporte.href = `reporte_docentes.html?clave=${clave}&rol=${data.rol}`;
+  }
+</script>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
