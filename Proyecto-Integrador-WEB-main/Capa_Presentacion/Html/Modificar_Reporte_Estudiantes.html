@@ -26,9 +26,7 @@
 
   <!-- Acciones superiores -->
   <div class="acciones-superior">
-    <button class="btn btn-danger">
-      <i class="fa-solid fa-trash"></i> Eliminar
-    </button>
+
     <div class="d-flex gap-2">
       <button class="btn btn-success">
         <i class="fa-solid fa-floppy-disk"></i> Guardar
@@ -65,6 +63,7 @@
           <th>Grupo</th>
           <th>Fecha</th>
           <th>Modificar Asistencia</th>
+          <th>Eliminar</th> 
         </tr>
       </thead>
       <tbody id="tabla-registros-estudiantes">
@@ -87,12 +86,16 @@
               <option value="inasistencia">Inasistencia</option>
             </select>
           </td>
+           <td>
+    <button class="btn btn-sm btn-danger eliminar-fila">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+
         </tr>
         <!-- Más filas dinámicas aquí -->
       </tbody>
     </table>
   </div>
-
 <script>
   document.getElementById("btnBuscar").addEventListener("click", function () {
     const clave = document.getElementById("clave").value.trim();
@@ -130,6 +133,11 @@
                 <option value="inasistencia" ${registro.estado === "inasistencia" ? "selected" : ""}>Inasistencia</option>
               </select>
             </td>
+            <td>
+               <button class="btn btn-sm btn-danger eliminar-fila">
+                <i class="fa-solid fa-trash"></i>
+               </button>
+            </td>
           `;
           tbody.appendChild(fila);
         });
@@ -161,6 +169,33 @@
     .then(response => {
       alert("Cambios guardados correctamente.");
     });
+  });
+</script>
+
+<script>
+  document.getElementById("tabla-registros-estudiantes").addEventListener("click", function (e) {
+    if (e.target.closest(".eliminar-fila")) {
+      const fila = e.target.closest("tr");
+      const id = fila.querySelector(".estado-asistencia")?.dataset.id;
+
+      if (confirm("¿Eliminar esta fila del reporte?")) {
+        fila.remove(); // Elimina visualmente
+
+        // Si quieres eliminar en el backend también:
+        if (id) {
+          const [matricula, fecha] = id.split("_");
+          fetch("/api/eliminar-registro", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ matricula, fecha })
+          })
+          .then(res => res.json())
+          .then(response => {
+            alert("Registro eliminado correctamente.");
+          });
+        }
+      }
+    }
   });
 </script>
 
