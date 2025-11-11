@@ -9,23 +9,29 @@
 <body class="bg-light">
 
   <div class="container py-5">
-    <h2 class="text-center mb-4">Agregar Personas</h2>
+    <h2 class="text-center mb-4">Agregar Alumno</h2>
 
     <!-- Formulario -->
     <form id="formularioPersona" class="mb-4">
       <div class="row g-3">
         <div class="col-md-4">
-          <input type="text" id="nombre" class="form-control" placeholder="Nombre" required>
+          <input type="text" id="Nombre" class="form-control" placeholder="Nombre" required>
         </div>
         <div class="col-md-4">
-          <input type="text" id="apellido" class="form-control" placeholder="Apellido" required>
+          <input type="text" id="Apellido_Paterno" class="form-control" placeholder="Apellido_Paterno" required>
         </div>
         <div class="col-md-4">
-          <input type="email" id="correo" class="form-control" placeholder="Correo electrónico" required>
+          <input type="text" id="Apellido_Materno" class="form-control" placeholder="Apellido_Materno" required>
+        </div>
+         <div class="col-md-4">
+          <input type="text" id="Semestre" class="form-control" placeholder="Semeste" required>
+        </div>
+          <div class="col-md-4">
+          <input type="text" id="Grupo" class="form-control" placeholder="Grupo" required>
         </div>
       </div>
       <div class="mt-3 text-end">
-        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="submit" class="btn btn-primary">Agregar Alumno</button>
       </div>
     </form>
 
@@ -34,10 +40,12 @@
       <table class="table table-bordered table-striped" id="tablaPersonas">
         <thead class="table-dark">
           <tr>
-            <th>#</th>
+            <th>Matricula</th>
             <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
+            <th>Apellido_Paterno</th>
+            <th>Apellido_Materno</th>
+            <th>Semestre</th>
+            <th>Grupo</th>
           </tr>
         </thead>
         <tbody>
@@ -55,17 +63,22 @@
     formulario.addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const nombre = document.getElementById("nombre").value.trim();
-      const apellido = document.getElementById("apellido").value.trim();
-      const correo = document.getElementById("correo").value.trim();
+      const Nombre = document.getElementById("Nombre").value.trim();
+      const Apellido_Paterno = document.getElementById("Apellido_Paterno").value.trim();
+      const Apellido_Materno = document.getElementById("Apellido_Materno").value.trim();
+      const Semestre = document.getElementById("Semestre").value.trim();
+      const Grupo = document.getElementById("Grupo").value.trim();
 
-      if (nombre && apellido && correo) {
+      if (Nombre && Apellido_Paterno && Apellido_Materno && Semestre && Grupo) {
         const fila = document.createElement("tr");
         fila.innerHTML = `
           <td>${contador++}</td>
-          <td>${nombre}</td>
-          <td>${apellido}</td>
-          <td>${correo}</td>
+          <td>${Nombre}</td>
+          <td>${Apellido_Paterno}</td>
+          <td>${Apellido_Materno}</td>
+          <td>${Semestre}</td>
+          <td>${Grupo}</td>
+          
         `;
         tabla.appendChild(fila);
         formulario.reset();
