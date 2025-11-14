@@ -6,7 +6,7 @@
     <title>Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../Estilos/Inf_Docente.css">
+    <link rel="stylesheet" href="/static/Estilos/Inf_Docente.css">
 </head>
 <body>
      <header>
@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-danger" id="Titulo2">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="../Images/cecyteh_horizontal.png" alt="Logo" width="200" class="me-2">
+                <img src="/static/Images/cecyteh_horizontal.png" alt="Logo" width="200" class="me-2">
                 </a>
                 <h1 id="Titulo" class="Titulo">Colegio de Estudios Científicos y Tecnológicos del Estado de Hidalgo</h1>     
             </div>
@@ -61,10 +61,10 @@
             </div>
             <div class="fotografia">
                 <!--Aquí va ir la fotograafía del estudiante-->
-                <img src="../Images/Male_User.png" class="img-thumbnail" alt="..." width="400" >
+                <img src="/static/Images/Male_User.png" class="img-thumbnail" alt="..." width="400" >
             </div>
             <div>
-                <a href="reporte_docentes.html" class="btn btn-success w-100 mb-2">REPORTE DE ASISTENCIAS</a>
+                <a href="/static/reporte_docentes.html" class="btn btn-success w-100 mb-2">REPORTE DE ASISTENCIAS</a>
             </div>
         </section>
         <section>
@@ -93,26 +93,27 @@
         </section>
         <script>
   // Leer la clave desde la URL
-  const params = new URLSearchParams(window.location.search);
-  const clave = params.get("clave");
+const params = new URLSearchParams(window.location.search);
+const clave = params.get("Clave") || params.get("clave");
 
-  // Mostrar la clave directamente
-  if (clave) {
-    document.getElementById("clave").value = clave;
-
-    // Simulación de datos (el backend lo reemplazará luego)
-    const data = {
-      nombre: "Ejemplo",
-      apellido_paterno: "Apellido1",
-      apellido_materno: "Apellido2",
-      rol: "docente" // o "administrativo"
-    };
-
-    // Insertar datos en los campos
-    document.getElementById("nombre").value = data.nombre;
-    document.getElementById("apellido_paterno").value = data.apellido_paterno;
-    document.getElementById("apellido_materno").value = data.apellido_materno;
-    document.getElementById("rol").value = data.rol;
+if (clave) {
+  fetch("/api/personal",{
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Clave: clave })
+  })
+  .then(res => res.json())
+  .then(data => {
+      if(data.error){
+          alert("No encontrado o no hay datos");
+          return;
+      }
+      document.getElementById("Clave").value = data.clave;
+      document.getElementById("Nombre").value = data.nombre;
+      document.getElementById("Apellido_Paterno").value = data.apellido_paterno;
+      document.getElementById("Apellido_Materno").value = data.apellido_materno;
+      document.getElementById("Rol").value = data.rol;
+  });
 
     // Redirigir al reporte con clave y rol
     const btnReporte = document.getElementById("btnReporte");

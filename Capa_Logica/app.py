@@ -84,5 +84,26 @@ def insertar_estudiante():
     conn.close()
     return jsonify({"mensaje": "Insertado correctamente"})
 
+@app.route('/api/personal', methods=['POST'])
+def info_personal():
+    data = request.get_json()
+    print("POST recibido:", data)
+    clave = data.get("Clave") or data.get("Clave")
+    if not clave:
+        return jsonify({"error": "No se recibió matrícula"}), 400
+    conn = obtener_conexion()
+    cur = conn.cursor()
+    cur.execute("SELECT clave, nombre, apellido_paterno, apellido_materno, rol FROM personal WHERE clave=%s;", (clave,))
+    datos = cur.fetchone()
+    cur.close()
+    conn.close()
+    if datos:
+        keys = ['clave', 'nombre', 'apellido_paterno', 'apellido_materno', 'rol']
+        return jsonify(dict(zip(keys, datos)))
+    else:
+        return jsonify({"error": "No encontrado"}), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
